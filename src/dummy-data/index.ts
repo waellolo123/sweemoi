@@ -15,10 +15,14 @@ export const user = {
 	updatedAt: Date.now(),
 };
 
+
+
+
+
 export const posts = [
 	{
 		id: 1,
-		text: "Post Content",
+		text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero impedit velit ea quibusdam dignissimos atque, fugiat inventore nulla facere ut voluptatum, doloremque enim suscipit, autem distinctio aperiam similique nemo molestiae dolorem! Debitis minima enim iste a alias consequuntur inventore ullam, officiis placeat sapiente eligendi mollitia porro quae magnam beatae quibusdam.",
 		mediaType: "image",
 		mediaUrl: "/featured/featured1.jpg",
 		likes: 12,
@@ -35,7 +39,7 @@ export const posts = [
 	},
 	{
 		id: 2,
-		text: "Post Content",
+		text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero impedit velit ea quibusdam dignissimos atque, fugiat inventore nulla facere ut voluptatum, doloremque enim suscipit, autem distinctio aperiam similique nemo molestiae dolorem! Debitis minima enim iste a alias consequuntur inventore ullam, officiis placeat sapiente eligendi mollitia porro quae magnam beatae quibusdam.",
 		mediaType: "image",
 		mediaUrl: "/featured/featured2.jpg",
 		likes: 12,
@@ -52,7 +56,7 @@ export const posts = [
 	},
 	{
 		id: 3,
-		text: "Post Content",
+		text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero impedit velit ea quibusdam dignissimos atque, fugiat inventore nulla facere ut voluptatum, doloremque enim suscipit, autem distinctio aperiam similique nemo molestiae dolorem! Debitis minima enim iste a alias consequuntur inventore ullam, officiis placeat sapiente eligendi mollitia porro quae magnam beatae quibusdam.",
 		mediaType: "image",
 		mediaUrl: "/featured/featured3.jpg",
 		likes: 12,

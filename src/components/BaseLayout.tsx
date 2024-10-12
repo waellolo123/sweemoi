@@ -2,6 +2,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation";
 import { ReactNode } from "react"
 import Sidebar from "./Sidebar";
+import SuggestedProducts from "./SuggestedProducts";
 
 
 const BaseLayout = async ({children, renderRightPanel=true}: {children: ReactNode, renderRightPanel?: boolean}) => {
@@ -21,7 +22,7 @@ const BaseLayout = async ({children, renderRightPanel=true}: {children: ReactNod
       {/* main content */}
       <div className="w-full lg:w-3/5 flex flex-col border-r">{children}</div>
       {/* right panel */}
-      {renderRightPanel && <p>suggested products</p>}
+      {renderRightPanel && <SuggestedProducts />}
     </div>
   )
 }
