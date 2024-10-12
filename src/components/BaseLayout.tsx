@@ -26,4 +26,4 @@ const BaseLayout = async ({children, renderRightPanel=true}: {children: ReactNod
   )
 }
 
-export default BaseLayout
+export default BaseLayout;

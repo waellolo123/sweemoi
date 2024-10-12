@@ -1,11 +1,12 @@
 import BaseLayout from "@/components/BaseLayout";
+import UserProfile from "./UserProfile";
 
 
 
 const HomeScreen = () => {
   return (
     <BaseLayout>
-      <p>home screen content</p>
+      <UserProfile />
     </BaseLayout>
   )
 }
