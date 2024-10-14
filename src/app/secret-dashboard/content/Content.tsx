@@ -6,13 +6,40 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea"
-import { FileWarning, TriangleAlert } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { TriangleAlert } from "lucide-react";
 import { CldUploadWidget, CldVideoPlayer, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import Image from "next/image";
 import { useState } from "react"
+import { createPostAction } from "../actions";
+import { useToast } from "@/components/hooks/use-toast";
 
 
 const Content = () => {
+
+  const {toast} = useToast();
+
+  const {mutate: createPost, isPending} = useMutation({
+    mutationKey: ["createPost"],
+    mutationFn: async () => createPostAction({text, isPublic, mediaUrl, mediaType}),
+    onSuccess: () => {
+      toast({
+        title: "Post created",
+        description: "Your post has been created successfully"
+      });
+      setText("");
+      setMediaType("image");
+      setIsPublic(false);
+      setMediaUrl("");
+    },
+    onError: (error) => {
+      toast({
+        title: "Error creating post",
+        description: error.message,
+        variant: "destructive"
+      })
+    }
+  });
 
   const [text, setText] = useState("");
   const [mediaType, setMediaType] = useState<"video" | "image">("image");
@@ -22,7 +49,10 @@ const Content = () => {
   return (
     <>
      <p className="text-3xl my-5 font-bold text-center uppercase">Share Post</p>
-     <form action="">
+     <form onSubmit={(e) => {
+      e.preventDefault();
+      createPost();
+     }}>
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl">New Post</CardTitle>
@@ -96,7 +126,9 @@ const Content = () => {
           </Alert>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" type="submit">Create Post</Button>
+          <Button className="w-full" type="submit" disabled={isPending}>
+            {isPending ? 'Please wait...' : 'Create Post'}
+          </Button>
         </CardFooter>
       </Card>
      </form>

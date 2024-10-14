@@ -3,22 +3,46 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CldUploadWidget, CldVideoPlayer, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import Image from "next/image";
 import { useState } from "react";
+import { addNewProductToStoreAction } from "../actions";
+import { useToast } from "@/components/hooks/use-toast";
 
 
 const AddNewProductForm = () => {
   
   const [name, setName] = useState("");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState("");
   const [imgUrl, setImgUrl] = useState("");
+
+  const {toast} = useToast();
+  const queryClient = useQueryClient();
+
+  const {mutate: createProduct, isPending} = useMutation({
+    mutationKey: ["createProduct"],
+    mutationFn: async () => await addNewProductToStoreAction({name, image: imgUrl, price}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["getAllProducts"]});
+      toast({
+        title: "Product added successfully",
+        description: "the product has been added to your store is online"
+      });
+      setName("");
+      setPrice("");
+      setImgUrl("");
+    }
+  });
 
 
   return (
     <>
     <p className="text-3xl tracking-tighter my-5 font-medium text-center">Add New Product</p>
-    <form >
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      createProduct();
+    }}>
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl">New Merch</CardTitle>
@@ -44,7 +68,7 @@ const AddNewProductForm = () => {
             placeholder="Your product price..."
             required
             value={price}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setPrice(e.target.value)}
             />
           </div>
           <CldUploadWidget signatureEndpoint="/api/sign-image"
@@ -70,7 +94,7 @@ const AddNewProductForm = () => {
           )}
         </CardContent>
         <CardFooter>
-          <Button className="w-full" type="submit">Add Product</Button>
+          <Button className="w-full" type="submit" disabled={isPending}>{isPending ? "Please wait..." : "Add Product"}</Button>
         </CardFooter>
       </Card>
     </form>

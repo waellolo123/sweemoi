@@ -1,19 +1,24 @@
+"use client";
 import ProductCard from "@/components/ProductCard";
 import ProductSkeleton from "@/components/skeletons/ProductSkeleton";
-import { products } from "@/dummy-data";
+import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
+import { getAllProductsAction } from "../actions";
 
 
 const ExistingProducts = () => {
 
-  const isLoading = false;
+  const {data: products, isLoading} = useQuery({
+    queryKey: ["getAllProducts"],
+    queryFn: async () => await getAllProductsAction()
+  });
 
   return (
     <>
      <p className="text-3xl tracking-tighter my-3 font-medium">Existing Products</p>
 
      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {products.map((product) => <ProductCard adminView key={product.id} product={product} />)}
+      {products?.map((product) => <ProductCard adminView key={product.id} product={product} />)}
      </div>
 
      {!isLoading && products?.length === 0 && (

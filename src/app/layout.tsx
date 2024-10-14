@@ -4,6 +4,8 @@ import 'next-cloudinary/dist/cld-video-player.css';
 import "./globals.css";
 import { ThemeProvider } from "@/providers/Theme-provider";
 import Footer from "@/components/Footer";
+import TanstackProvider from "@/providers/TanstackProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,11 +30,14 @@ export default function RootLayout({
           >
          <div className="h-screen flex flex-col">
           <div className="flex-1">
-           {children}
+            <TanstackProvider>
+              {children}
+            </TanstackProvider>
           </div>
           </div>   
           {/* <Footer /> */}
         </ThemeProvider>
+        <Toaster />
         </body>
     </html>
   );

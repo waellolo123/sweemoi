@@ -1,12 +1,11 @@
-"use client";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import {ArrowDown, ArrowDown01, Home, LayoutDashboard, Shirt, User} from "lucide-react";
+import {ArrowDown01, Home, LayoutDashboard, Shirt, User} from "lucide-react";
 import { DropdownMenu, DropdownMenuItem, DropdownMenuLabel } from "./ui/dropdown-menu";
 import { DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import { ModeToggle } from "./ModeToggle";
-import { user } from "@/dummy-data";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import LogoutButton from "./LogoutButton";
 
 
 const Sidebar_Links = [
@@ -15,15 +14,18 @@ const Sidebar_Links = [
 ]
 
 
-const Sidebar = () => {
+const Sidebar = async () => {
 
-  const isAdmin = true;
+  const {getUser} = getKindeServerSession();
+  const user = await getUser();
+
+  const isAdmin = process.env.ADMIN_EMAIL === user?.email;
 
   return (
     <div className="flex lg:w-1/5 flex-col gap-3 px-2 border-r sticky left-0 top-0 h-screen">
       <Link href="/update-profile" className="max-w-fit">
        <Avatar className="mt-4 cursor-pointer">
-        <AvatarImage src={user.image} className="object-cover" />
+        <AvatarImage src={user?.picture || "/user-placeholder.png"} className="object-cover" />
         <AvatarFallback>CN</AvatarFallback>
        </Avatar>
       </Link>
@@ -58,7 +60,8 @@ const Sidebar = () => {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
               <Link href={"#"}><DropdownMenuItem>Billing</DropdownMenuItem></Link>
-              <LogoutLink><DropdownMenuItem>Logout</DropdownMenuItem></LogoutLink>
+              {/* kinde logout components */}
+              <LogoutButton />
           </DropdownMenuContent>
         </DropdownMenu>
         <ModeToggle />
