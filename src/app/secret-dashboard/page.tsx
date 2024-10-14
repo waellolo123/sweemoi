@@ -1,6 +1,8 @@
 import BaseLayout from "@/components/BaseLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Content from "./content/Content";
+import StoreTab from "./store/StoreTab";
+import AnalyticsTab from "./analytics/AnalyticsTab";
 
 
 const DashboardPage = () => {
@@ -12,12 +14,9 @@ const DashboardPage = () => {
           <TabsTrigger className="w-full md:w-auto" value="store">Store</TabsTrigger>
           <TabsTrigger className="w-full md:w-auto" value="analytics">Analytics</TabsTrigger>
         </TabsList>
-        <TabsContent value="content">
-          {/* content tab */}
-          <Content />
-        </TabsContent>
-        <TabsContent value="store">store</TabsContent>
-        <TabsContent value="analytics">analytics</TabsContent>
+        <TabsContent value="content"><Content /></TabsContent>
+        <TabsContent value="store"><StoreTab /></TabsContent>
+        <TabsContent value="analytics"><AnalyticsTab /></TabsContent>
       </Tabs>
     </BaseLayout>
   )

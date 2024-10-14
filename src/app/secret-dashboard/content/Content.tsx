@@ -17,7 +17,7 @@ const Content = () => {
   const [text, setText] = useState("");
   const [mediaType, setMediaType] = useState<"video" | "image">("image");
   const [isPublic, setIsPublic] = useState<boolean>(false);
-  const [mediaUrl, setMediaUrl] = useState<string>("");
+  const [mediaUrl, setMediaUrl] = useState("");
 
   return (
     <>
