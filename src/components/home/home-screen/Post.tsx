@@ -10,13 +10,14 @@ import { CldVideoPlayer } from "next-cloudinary";
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { deletePostAction, likePostAction } from "./actions";
+import { commentOnPostAction, deletePostAction, likePostAction } from "./actions";
 import { useToast } from "@/components/hooks/use-toast";
 import { error } from "console";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
+import Comment from "./Comment";
 
 
 type PostWithComments = Prisma.PostGetPayload<{
@@ -33,6 +34,7 @@ type PostWithComments = Prisma.PostGetPayload<{
 const Post = ({post, isSubscribed, admin}: {post: PostWithComments, isSubscribed: boolean, admin: User}) => {
 
   const [isLiked, setIsLiked] = useState(false);
+  const [comment, setComment] = useState("");
   const {user} = useKindeBrowserClient();
 
   const {toast} = useToast();
@@ -74,11 +76,39 @@ const Post = ({post, isSubscribed, admin}: {post: PostWithComments, isSubscribed
     }
   });
 
+    
+  const {mutate: commentPost, isPending: isCommenting} = useMutation({
+    mutationKey: ["commentPost"],
+    mutationFn: async () => await commentOnPostAction(post.id, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["posts"]});
+      setComment("");
+      toast({
+        title: "Success",
+        description: "Comment added successfully"
+      })
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong",
+        variant: "destructive"
+      })
+    }
+  })
+
+  const handleCommentSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(!comment) return;
+    commentPost();
+
+  }
+
   useEffect(()=>{
     if(post.likesList && user?.id) setIsLiked(post.likesList.length > 0)
   },[post.likesList, user?.id])
 
-
+ 
 
   return (
     <div className="flex flex-col gap-3 p-3 border-t">
@@ -142,7 +172,8 @@ const Post = ({post, isSubscribed, admin}: {post: PostWithComments, isSubscribed
           />
           <span className="text-xs text-zinc-400 tracking-tighter">{post.likes}</span>
         </div>
-        <div className="flex gap-1 items-center">
+        {/* comment section */}
+        <div className="flex gap-1 items-center w-full">
          <Dialog>
           <DialogTrigger>
            <MessageCircle className="w-6 h-6 text-zinc-400 cursor-pointer" />
@@ -155,28 +186,30 @@ const Post = ({post, isSubscribed, admin}: {post: PostWithComments, isSubscribed
                 </DialogTitle>
               </DialogHeader>
               <ScrollArea className="h-[400px] w-[300px] rounded-md p-4">
-               {/* {post.comments.map(comment => (
+               {post.comments.map(comment => (
                 <Comment key={comment.id} comment={comment} />
-               ))} */}
+               ))}
                {post.comments.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full">
                   <p className="text-zinc-400">No Comments Yet</p>
                 </div>
                )}
               </ScrollArea>
-              <form>
-                <Input placeholder="Add a Comment" />
+              <form onSubmit={handleCommentSubmission}>
+                <Input
+                value={comment}
+                onChange={(e) => setComment(e.target.value)} 
+                placeholder="Add a Comment" />
                 <DialogFooter>
-                  <Button type="submit" className="mt-4">Comment</Button>
+                  <Button type="submit" className="mt-4" disabled={isCommenting}>{isCommenting ? "Please wait..." : "Comment"}</Button>
                 </DialogFooter>
               </form>
             </DialogContent>
           )}
          </Dialog> 
-        </div>
         <div className="flex gap-1 items-center">
-          
           <span className="text-xs text-zinc-400 tracking-tighter">{post.comments.length > 0 ? post.comments.length : 0}</span>
+        </div>
         </div>
       </div>
     </div>
