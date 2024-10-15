@@ -24,10 +24,12 @@ const ZoomedImage = ({className, imgSrc}: {className?: string, imgSrc: string}) 
       style={{
         transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
       }}
-      className="transition-transform duration-500 ease-in-out transform hover:scale-[2.5] cursor-pointer rounded-md "
+      className="transition-transform duration-500 ease-in-out transform object-cover cursor-pointer rounded-md "
       />
     </div>
   )
 }
 
-export default ZoomedImage
+export default ZoomedImage;
+
+// className="transition-transform duration-500 ease-in-out transform hover:scale-[2.5] cursor-pointer rounded-md "

@@ -1,15 +1,17 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ZoomedImage from "@/components/ZoomedImage";
 import { centsToDollars } from "@/lib/utils";
+import { Product } from "@prisma/client";
 import { useState } from "react";
 
-const ProductCheckout = ({product}: {product: any}) => {
+const ProductCheckout = ({product}: {product: Product}) => {
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+
+  
 
   return (
     <div className="flex flex-col md:flex-row gap-5">

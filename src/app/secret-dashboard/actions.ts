@@ -10,14 +10,11 @@ export type PostArgs = {
 }
 
 export async function createPostAction({isPublic, mediaUrl, mediaType, text}: PostArgs){
-  const {getUser} = getKindeServerSession();
-  const user = await getUser();
+  const admin = await checkIfAdmin();
 
-  const isAdmin = user?.email === process.env.ADMIN_EMAIL;
-
-  if(!user || !isAdmin){
-    throw new Error("unauthorized");
-  }
+ if(!admin){
+  throw new Error("unauthorized");
+ }
 
   const newPost = await prisma.post.create({
     data: {
@@ -25,7 +22,7 @@ export async function createPostAction({isPublic, mediaUrl, mediaType, text}: Po
       mediaUrl,
       mediaType,
       isPublic,
-      userId: user.id
+      userId: admin.id
     }
   });
 
@@ -76,6 +73,25 @@ export async function addNewProductToStoreAction({name, image, price}: ProductAr
    
 }
 
+
+export async function toggleProductArchiveAction(productId:string){
+  const isAdmin = await checkIfAdmin();
+  if(!isAdmin){
+    throw new Error("unauthorized");
+  }
+  const product = await prisma.product.findUnique({where: {id: productId}});
+  if(!product){
+    throw new Error("Product not found");
+  }
+  const updatedProduct = await prisma.product.update({
+    where: {id: productId},
+    data: {
+      isArchived: !product.isArchived
+    }
+  });
+  return {success: true, product: updatedProduct};
+}
+
 async function checkIfAdmin(){
   const {getUser} = getKindeServerSession();
   const user = await getUser();
@@ -83,5 +99,5 @@ async function checkIfAdmin(){
 
   if(!user || !isAdmin) return false;
 
-  return true;
+  return user;
 }

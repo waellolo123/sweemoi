@@ -6,6 +6,7 @@ import { DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from 
 import { ModeToggle } from "./ModeToggle";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import LogoutButton from "./LogoutButton";
+import { getUserProfileAction } from "@/app/update-profile/actions";
 
 
 const Sidebar_Links = [
@@ -19,13 +20,16 @@ const Sidebar = async () => {
   const {getUser} = getKindeServerSession();
   const user = await getUser();
 
+  // todo update profile image in the sidebar
+  const userProfile = await getUserProfileAction();
+
   const isAdmin = process.env.ADMIN_EMAIL === user?.email;
 
   return (
     <div className="flex lg:w-1/5 flex-col gap-3 px-2 border-r sticky left-0 top-0 h-screen">
       <Link href="/update-profile" className="max-w-fit">
        <Avatar className="mt-4 cursor-pointer">
-        <AvatarImage src={user?.picture || "/user-placeholder.png"} className="object-cover" />
+        <AvatarImage src={userProfile?.image || "/user-placeholder.png"} className="object-cover" />
         <AvatarFallback>CN</AvatarFallback>
        </Avatar>
       </Link>
