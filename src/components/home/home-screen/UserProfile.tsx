@@ -41,7 +41,7 @@ const UserProfile = async () => {
         </div>
         <div className="flex flex-col mt-4">
           <p className="text-lg font-semibold">{admin?.name}</p>
-          <p className="text-sm md:text-md">Discover daily tips and tricks for cook health and coffees, alogn with insights into my personal routine with my dishes and receipes. Subscribe now to gain access to exclusive content and become part of the community.</p>
+          <p className="text-sm md:text-md">Graphic designer and Motion designer in 2D and 3D with more than 7 years of experience, Fullstack web and mobile developer with 4 years of experience.</p>
         </div>
       </div>
       <div className="h-2 w-full bg-muted" aria-hidden="true"/>

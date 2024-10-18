@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Swee Moi",
+  title: "Wael",
   description: "follow me to get my news",
 };
 
@@ -34,8 +34,8 @@ export default function RootLayout({
               {children}
             </TanstackProvider>
           </div>
+          <Footer />
           </div>   
-          {/* <Footer /> */}
         </ThemeProvider>
         <Toaster />
         </body>

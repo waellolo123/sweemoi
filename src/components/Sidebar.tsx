@@ -60,7 +60,7 @@ const Sidebar = async () => {
             <ArrowDown01 className="w-6 h-6 lg:ml-2" />
            </DropdownMenuTrigger> 
           </div>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="bg-white">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
               <Link href={"#"}><DropdownMenuItem>Billing</DropdownMenuItem></Link>

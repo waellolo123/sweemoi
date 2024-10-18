@@ -16,6 +16,9 @@ export async function getPostsAction(){
         }
       },
       likesList: {where: {userId: user.id}}
+    },
+    orderBy: {
+      createdAt: 'desc'
     }
   });
 
