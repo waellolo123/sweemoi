@@ -6,37 +6,37 @@ const reviews = [
 	{
 		name: "Jack",
 		username: "@jack",
-		body: "The horse care tips are incredibly helpful. Love this site!",
+		body: "thanks for the good work",
 		img: "https://avatar.vercel.sh/jack",
 	},
 	{
 		name: "Jill",
 		username: "@jill",
-		body: "Fantastic insights on horse training. Highly recommend!",
+		body: "Well done brother thanks!",
 		img: "https://avatar.vercel.sh/jill",
 	},
 	{
 		name: "John",
 		username: "@john",
-		body: "Great community for horse lovers. Very informative!",
+		body: "great work thank you very much!",
 		img: "https://avatar.vercel.sh/john",
 	},
 	{
 		name: "Jane",
 		username: "@jane",
-		body: "Wonderful content about daily farm life. Amazing!",
+		body: "Very good skills in graphic design!",
 		img: "https://avatar.vercel.sh/jane",
 	},
 	{
 		name: "Jenny",
 		username: "@jenny",
-		body: "The exclusive footage is just stunning. I love it!",
+		body: "thank you very much for the good renders",
 		img: "https://avatar.vercel.sh/jenny",
 	},
 	{
 		name: "James",
 		username: "@james",
-		body: "Horse health tips are spot on. Very useful website!",
+		body: "Very nice work mr keep the good work",
 		img: "https://avatar.vercel.sh/james",
 	},
 ];

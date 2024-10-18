@@ -39,11 +39,11 @@ const Team = () => {
 	return (
 		<section className='container py-24 sm:py-32'>
 			<h2 className='text-2xl sm:text-3xl md:text-5xl text-center tracking-tighter font-bold'>
-				Our Dedicated Crew
+			  Some Collaborators
 			</h2>
 
 			<p className='mt-4 mb-10 text-md md:text-xl text-muted-foreground text-center'>
-				Meet the team that makes our farm a special place for horses and riders alike.
+			  Here are some of my collaborators in graphic design, 3D or web development.
 			</p>
 
 			<div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-10'>
