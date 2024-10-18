@@ -11,7 +11,7 @@ const TodaysHighlight = () => {
       width="960"
       height="540"
       className='rounded-md'
-      src='https://res.cloudinary.com/dyesiteib/video/upload/v1721235744/motion_design_resume_olnrek.mp4'
+      src='https://res.cloudinary.com/dyesiteib/video/upload/v1729245783/Graphic_motion_design_professionnal_resume_omsud8.mp4'
       />
     </div>
   )

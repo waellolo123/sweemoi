@@ -41,7 +41,7 @@ export const tiers: PricingTier[] = [
 	{
 		name: "Premium Plan",
 		id: "0",
-		price: { "1": "$89", "2": "$999" },
+		price: { "1": "$50", "2": "$300" },
 		discountPrice: { "1": "$59", "2": "$499" },
 		description: `Get access to our exclusive content. Cancel anytime.`,
 		features: [`Access to all premium content`, "Comment your thoughts", "Like your favorite posts"],
@@ -96,6 +96,7 @@ export default function Pricing() {
 						<h1 className='text-center text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-6xl !leading-tight'>
 							Pricing
 						</h1>
+						<p>You can Subscribe to my Account for realy sheap price</p>
 					</div>
 
 					{bannerText ? (
